@@ -1,4 +1,3 @@
-"""Endpoint de autenticação — emite o token JWT usado nas rotas protegidas."""
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 

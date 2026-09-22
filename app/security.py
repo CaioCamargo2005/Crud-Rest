@@ -1,4 +1,3 @@
-"""Autenticação e autorização via JWT."""
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 

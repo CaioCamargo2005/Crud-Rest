@@ -1,8 +1,3 @@
-/* ---------------------------------------------------------------
-   Painel de Produtos — tokens
-   Direção: "ficha/terminal de estoque". Fundo escuro e quente,
-   acento âmbar (etiqueta de armazém), números em monoespaçada.
------------------------------------------------------------------- */
 :root {
   --bg: #1B1D22;
   --surface: #24272E;

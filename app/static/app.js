@@ -1,7 +1,3 @@
-// Painel de Produtos — consome a API REST (FastAPI) definida em app/main.py.
-// Sem framework: DOM direto + fetch. Token guardado em sessionStorage
-// (sobrevive a um refresh da aba, mas não é enviado a mais ninguém).
-
 const API = "";
 const TOKEN_KEY = "painel_produtos_token";
 const USER_KEY = "painel_produtos_user";

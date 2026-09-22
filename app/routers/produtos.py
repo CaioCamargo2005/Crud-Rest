@@ -1,4 +1,3 @@
-"""CRUD de produtos — GET é público, POST/PUT/DELETE exigem token JWT com papel ADMIN."""
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status

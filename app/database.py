@@ -1,4 +1,3 @@
-"""Configuração de acesso ao banco de dados (SQLite via SQLAlchemy)."""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 

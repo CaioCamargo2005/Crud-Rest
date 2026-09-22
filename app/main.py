@@ -1,9 +1,3 @@
-"""API RESTful de Produtos — Atividade Prática 2, IAL-221 Arquitetura de APIs.
-
-Além da API, este módulo também serve uma pequena interface web estática
-(pasta app/static/) para que o usuário final não precise usar o Swagger UI
-ou curl no dia a dia — basta abrir http://localhost:8000 no navegador.
-"""
 from pathlib import Path
 
 from fastapi import FastAPI

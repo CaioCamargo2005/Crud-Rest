@@ -1,4 +1,3 @@
-"""Modelo ORM da entidade Produto."""
 from sqlalchemy import Column, Integer, Numeric, String
 
 from app.database import Base
