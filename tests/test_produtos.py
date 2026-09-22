@@ -1,5 +1,4 @@
-"""Testes de integração da API de Produtos (equivalentes ao Capítulo 11.3 da apostila,
-que usa MockMvc no lado Java — aqui usamos o TestClient do FastAPI/Starlette)."""
+"""Testes de integração da API de Produtos."""
 
 
 def _obter_token(client):
@@ -47,7 +46,6 @@ def test_fluxo_completo_crud_com_autenticacao(client):
     token = _obter_token(client)
     headers = {"Authorization": f"Bearer {token}"}
 
-    # Criar
     criado = client.post(
         "/api/produtos",
         json={"nome": "Notebook", "descricao": "16GB RAM", "preco": 3500.0, "estoque": 10},
@@ -56,12 +54,10 @@ def test_fluxo_completo_crud_com_autenticacao(client):
     assert criado.status_code == 201
     produto_id = criado.json()["id"]
 
-    # Buscar
     resposta = client.get(f"/api/produtos/{produto_id}")
     assert resposta.status_code == 200
     assert resposta.json()["nome"] == "Notebook"
 
-    # Atualizar
     atualizado = client.put(
         f"/api/produtos/{produto_id}",
         json={"nome": "Notebook Pro", "descricao": "32GB RAM", "preco": 4800.0, "estoque": 5},
@@ -70,10 +66,14 @@ def test_fluxo_completo_crud_com_autenticacao(client):
     assert atualizado.status_code == 200
     assert atualizado.json()["preco"] == 4800.0
 
-    # Remover
     removido = client.delete(f"/api/produtos/{produto_id}", headers=headers)
     assert removido.status_code == 204
 
-    # Confirmar remoção
     resposta_final = client.get(f"/api/produtos/{produto_id}")
     assert resposta_final.status_code == 404
+
+
+def test_frontend_e_servido_na_raiz(client):
+    resposta = client.get("/")
+    assert resposta.status_code == 200
+    assert "text/html" in resposta.headers["content-type"]

@@ -1,9 +1,4 @@
-"""Autenticação e autorização via JWT (equivalente ao Capítulo 7.3.2 e 12.2 da apostila).
-
-Implementa o fluxo Bearer Token: o usuário faz login em POST /auth/login,
-recebe um JWT assinado, e passa a enviá-lo no cabeçalho
-"Authorization: Bearer <token>" para acessar operações protegidas.
-"""
+"""Autenticação e autorização via JWT."""
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
@@ -12,8 +7,6 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-# ATENÇÃO: em um ambiente real, esta chave deve vir de uma variável de
-# ambiente/secret manager, nunca deve ficar hardcoded no código-fonte.
 SECRET_KEY = "chave-secreta-ial221-atividade-pratica-2-nao-usar-em-producao"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
@@ -21,7 +14,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
-# Base de usuários simplificada, apenas para fins didáticos da atividade.
 # Usuário: admin / Senha: admin123
 USUARIOS_FAKE_DB = {
     "admin": {
@@ -68,7 +60,6 @@ def obter_usuario_atual(token: str = Depends(oauth2_scheme)) -> dict:
 
 
 def exigir_admin(usuario: dict = Depends(obter_usuario_atual)) -> dict:
-    """Dependência que restringe o acesso a usuários com papel ADMIN (ver Capítulo 7.3.3)."""
     if usuario.get("role") != "ADMIN":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

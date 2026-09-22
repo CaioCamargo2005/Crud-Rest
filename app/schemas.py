@@ -1,3 +1,4 @@
+"""Schemas Pydantic (DTOs)."""
 from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -15,10 +16,7 @@ class ProdutoCreate(ProdutoBase):
 
 
 class ProdutoOut(ProdutoBase):
-    """Representação de um produto retornada pela API."""
-
     id: int
-
     model_config = ConfigDict(from_attributes=True)
 
 

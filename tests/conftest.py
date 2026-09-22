@@ -12,7 +12,6 @@ from sqlalchemy.pool import StaticPool
 from app.database import Base, get_db
 from app.main import app
 
-# Banco SQLite em memória, isolado por execução de teste (ver Capítulo 11.3 da apostila).
 engine_teste = create_engine(
     "sqlite://",
     connect_args={"check_same_thread": False},

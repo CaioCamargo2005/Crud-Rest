@@ -1,3 +1,4 @@
+"""Configuração de acesso ao banco de dados (SQLite via SQLAlchemy)."""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
@@ -12,7 +13,6 @@ Base = declarative_base()
 
 
 def get_db():
-    """Fornece uma sessão de banco de dados por requisição (padrão de dependência do FastAPI)."""
     db = SessionLocal()
     try:
         yield db

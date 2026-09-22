@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Produtos</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">Painel de Produtos</span>
+  </div>
+
+  <div class="topbar-right">
+    <span class="conn" id="conn-status" role="status" aria-live="polite">
+      <span class="conn-dot" id="conn-dot"></span>
+      <span id="conn-label">verificando conexão…</span>
+    </span>
+
+    <span class="session" id="session-info" hidden>
+      <span id="session-user"></span>
+      <button type="button" class="btn-ghost" id="btn-logout">Sair</button>
+    </span>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- Painel esquerdo: login OU formulário de produto -->
+  <section class="panel" aria-labelledby="panel-title">
+
+    <div id="login-panel">
+      <h2 id="panel-title">Entrar</h2>
+      <p class="panel-hint">Entre para adicionar, editar ou remover produtos. A listagem abaixo é pública e não exige login.</p>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="login-username">Usuário</label>
+          <input type="text" id="login-username" name="username" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="login-password">Senha</label>
+          <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+        </div>
+
+        <p class="form-message" id="login-message" role="alert" hidden></p>
+
+        <button type="submit" class="btn-primary" id="login-submit">
+          <span class="btn-label">Entrar</span>
+        </button>
+
+        <p class="panel-footnote">Usuário de teste: <code>admin</code> · Senha: <code>admin123</code></p>
+      </form>
+    </div>
+
+    <div id="product-form-panel" hidden>
+      <h2 id="product-form-title">Novo produto</h2>
+      <p class="panel-hint" id="product-form-hint">Preencha os dados e salve para adicionar ao estoque.</p>
+
+      <form id="product-form" novalidate>
+        <input type="hidden" id="product-id">
+
+        <div class="field">
+          <label for="product-nome">Nome</label>
+          <input type="text" id="product-nome" name="nome" required minlength="1">
+        </div>
+
+        <div class="field">
+          <label for="product-descricao">Descrição</label>
+          <input type="text" id="product-descricao" name="descricao">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="product-preco">Preço (R$)</label>
+            <input type="number" id="product-preco" name="preco" step="0.01" min="0.01" required>
+          </div>
+          <div class="field">
+            <label for="product-estoque">Estoque</label>
+            <input type="number" id="product-estoque" name="estoque" step="1" min="0" required>
+          </div>
+        </div>
+
+        <p class="form-message" id="product-form-message" role="alert" hidden></p>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="product-submit">
+            <span class="btn-label">Salvar produto</span>
+          </button>
+          <button type="button" class="btn-ghost" id="product-cancel-edit" hidden>Cancelar edição</button>
+        </div>
+      </form>
+    </div>
+
+  </section>
+
+  <!-- Painel direito: ledger de produtos -->
+  <section class="ledger" aria-labelledby="ledger-title">
+    <div class="ledger-header">
+      <h2 id="ledger-title">Produtos <span class="ledger-count" id="ledger-count">—</span></h2>
+      <button type="button" class="btn-ghost" id="btn-refresh" title="Atualizar lista">Atualizar</button>
+    </div>
+
+    <p class="form-message" id="ledger-message" role="alert" hidden></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Produto</th>
+            <th scope="col" class="num">Preço</th>
+            <th scope="col" class="num">Estoque</th>
+            <th scope="col" class="actions-col"><span class="sr-only">Ações</span></th>
+          </tr>
+        </thead>
+        <tbody id="ledger-body">
+          <!-- linhas inseridas via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <p class="ledger-empty" id="ledger-empty" hidden>Nenhum produto cadastrado ainda.</p>
+    <p class="ledger-loading" id="ledger-loading">Carregando produtos…</p>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
